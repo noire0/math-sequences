@@ -1,33 +1,35 @@
 #include <stdio.h>
+#include <math.h>
+#include <getopt.h>
+#define sqrt_n (int) floor(sqrt(n))
 
-int _prime(int n) {
-	int factor=3;
-	while (factor <= n) {
-        	if (n%factor == 0) {
-			if (factor == n) {
-				return n;
-			} else {
-				return 0;
-			}
-		} else {
-			factor+=2;
-		}
+_Bool isPrime(int n)
+{
+	int factor=2;
+	while (factor <= sqrt(n)) {
+		if (n%factor == 0)
+			return 0;
+		else
+			factor+=1;
 	}
+	return 1;
 }
 
-void main () {
-	int n, max;
-	_Bool input;
-	printf("Maximum number to check:\n");
+int main () {
+	int n=3, max;
+	_Bool input, nIsPrime;
+	printf("Maximum integer to check:\n");
 	input=scanf("%d", &max);
-	if (input!=0) {
-		n=3;
-		printf("2\n");
+	if (input) {
+		printf("OK\n2\n");
 		while (n <= max) {
-			if (_prime(n) != 0) {
-				printf("%d\n", _prime(n));
-			}
+			nIsPrime = isPrime(n);
+			if (nIsPrime == 1)
+				printf("%d\n", n);
 			n+=2;
 		}
+	} else {
+		printf("Write an integer.\n");
 	}
-}			
+	return !input;
+}
